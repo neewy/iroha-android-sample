@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".SendActivity"
+    tools:showIn="@layout/activity_send">
+
+    <EditText
+        android:id="@+id/accountId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="69dp"
+        android:ems="10"
+        android:hint="account@domain"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/numberOfAssets"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="27dp"
+        android:layout_marginEnd="1dp"
+        android:ems="10"
+        android:hint="Asset amount (e.g. 10)"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="@+id/accountId"
+        app:layout_constraintTop_toBottomOf="@+id/accountId" />
+
+    <EditText
+        android:id="@+id/transferMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:ems="10"
+        android:hint="Transfer message"
+        android:inputType="textMultiLine"
+        app:layout_constraintStart_toStartOf="@+id/numberOfAssets"
+        app:layout_constraintTop_toBottomOf="@+id/numberOfAssets" />
+
+    <Button
+        android:id="@+id/sendButton"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="Transfer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/transferMessage" />
+
+
+</android.support.constraint.ConstraintLayout>
