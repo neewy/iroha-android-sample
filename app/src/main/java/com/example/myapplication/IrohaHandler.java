@@ -20,7 +20,8 @@ public class IrohaHandler {
     public static final String coinId = "coin#test";
 
     private static IrohaHandler instance;
-    private IrohaAPI api;
+    private static IrohaAPI api;
+    public static MyAccount account;
 
     public static synchronized IrohaHandler getInstance() {
         if (instance == null) {
@@ -29,22 +30,34 @@ public class IrohaHandler {
         return instance;
     }
 
+    public static void terminateChannel(){
+        if (api != null) {
+            api.getChannel().shutdownNow();
+        }
+    }
+
     private IrohaHandler() {
-        MyAccount.getInstance();
-        api = new IrohaAPI("10.211.38.47", 50051);
+    }
+
+    public static void setApi(IrohaAPI api_passed) {
+        api = api_passed;
+    }
+
+    public static void setAccount(IrohaSettingsMessage message) {
+        account = new MyAccount(message.accountId, message.privateKey, message.publicKey);
     }
 
     void sendAsset(String to, String message, String amount) {
-        TransactionOuterClass.Transaction tx = Transaction.builder(MyAccount.accountId)
-                .transferAsset(MyAccount.accountId, to, coinId, message, amount)
-                .sign(MyAccount.myKeypair).build();
+        TransactionOuterClass.Transaction tx = Transaction.builder(account.accountId)
+                .transferAsset(account.accountId, to, coinId, message, amount)
+                .sign(account.myKeypair).build();
         sendTransaction(tx);
     }
 
     void addAsset(String amount) {
-        TransactionOuterClass.Transaction tx = Transaction.builder(MyAccount.accountId)
+        TransactionOuterClass.Transaction tx = Transaction.builder(account.accountId)
                 .addAssetQuantity(coinId, amount)
-                .sign(MyAccount.myKeypair).build();
+                .sign(account.myKeypair).build();
         sendTransaction(tx);
     }
 
@@ -69,9 +82,9 @@ public class IrohaHandler {
 
     int getBalance() {
         // build protobuf query, sign it
-        Queries.Query q = Query.builder(MyAccount.accountId, 1)
-                .getAccountAssets(MyAccount.accountId)
-                .buildSigned(MyAccount.myKeypair);
+        Queries.Query q = Query.builder(account.accountId, 1)
+                .getAccountAssets(account.accountId)
+                .buildSigned(account.myKeypair);
 
         // execute query, get response
         QryResponses.QueryResponse res = api.query(q);
@@ -93,24 +106,13 @@ public class IrohaHandler {
 
     public static class MyAccount {
 
-        private static MyAccount instance;
+        String accountId;
+        KeyPair myKeypair;
 
-
-        static final String accountName = "admin";
-        static final String accountDomain = "test";
-        static final String accountId = String.format("%s@%s", accountName, accountDomain);
-        static KeyPair myKeypair;
-
-        public static synchronized MyAccount getInstance() {
-            if (instance == null) {
-                instance = new MyAccount();
-            }
-            return instance;
-        }
-
-        private MyAccount() {
-            byte[] privateKey = DatatypeConverter.parseHexBinary("f101537e319568c765b2cc89698325604991dca57b9716b58016b253506cab70");
-            byte[] publicKey = DatatypeConverter.parseHexBinary("313a07e6384776ed95447710d15e59148473ccfc052a681317a72a69f2a49910");
+        public MyAccount(String accountId, String privateKeyHex, String publicKeyHex) {
+            this.accountId = accountId;
+            byte[] privateKey = DatatypeConverter.parseHexBinary(privateKeyHex);
+            byte[] publicKey = DatatypeConverter.parseHexBinary(publicKeyHex);
             myKeypair = Ed25519Sha3.keyPairFromBytes(privateKey, publicKey);
         }
     }

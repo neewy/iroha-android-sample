@@ -11,18 +11,25 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.Base64;
 
-public class QrCodeMessage implements Serializable {
+public class IrohaSettingsMessage implements Serializable {
 
-    private final static long serialVersionUID = 1;
+    private final static long serialVersionUID = 2;
 
-    public String accountName;
-    public String numberOfAssets;
+    public String networkAddress;
+    public String portNumber;
+    public String publicKey;
+    public String privateKey;
+    public String accountId;
 
-
-    public QrCodeMessage(String accountName, String numberOfAssets) {
-        this.accountName = accountName;
-        this.numberOfAssets = numberOfAssets;
+    public IrohaSettingsMessage(String networkAddress, String portNumber,
+                                String publicKey, String privateKey, String accountId) {
+        this.networkAddress = networkAddress;
+        this.portNumber = portNumber;
+        this.publicKey = publicKey;
+        this.privateKey = privateKey;
+        this.accountId = accountId;
     }
+
 
     /** Write the object to a Base64 string. */
     @RequiresApi(api = Build.VERSION_CODES.O)

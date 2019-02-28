@@ -15,7 +15,8 @@ import android.widget.TextView;
 
 import java.io.IOException;
 
-import static com.example.myapplication.QrCodeScanner.KEY_QR_CODE;
+import static com.example.myapplication.Constants.QR_CODE;
+import static com.example.myapplication.Constants.SCAN_TRANSFER;
 
 public class SendActivity extends AppCompatActivity {
 
@@ -28,11 +29,11 @@ public class SendActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_send);
         Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
         accountId = findViewById(R.id.accountId);
         numberOfAssets = findViewById(R.id.numberOfAssets);
         transferMessage = findViewById(R.id.transferMessage);
-        setSupportActionBar(toolbar);
-
         Button sendButton = findViewById(R.id.sendButton);
 
         sendButton.setOnClickListener(v ->
@@ -48,8 +49,7 @@ public class SendActivity extends AppCompatActivity {
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(view -> {
             Intent intent = new Intent(SendActivity.this, QrCodeScanner.class);
-            intent.setType("SCAN_QR");
-            startActivityForResult(intent, 1);
+            startActivityForResult(intent, SCAN_TRANSFER);
         });
     }
 
@@ -57,10 +57,10 @@ public class SendActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // Check which request we're responding to
-        if (requestCode == 1) {
+        if (requestCode == SCAN_TRANSFER) {
             // Make sure the request was successful
             if (resultCode == RESULT_OK) {
-                String qrCodeMessage = data.getStringExtra(KEY_QR_CODE);
+                String qrCodeMessage = data.getStringExtra(QR_CODE);
                 QrCodeMessage message = null;
                 try {
                     message = (QrCodeMessage) QrCodeMessage.fromString(qrCodeMessage);

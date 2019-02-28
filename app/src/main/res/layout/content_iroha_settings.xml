@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".IrohaSettingsActivity"
+    tools:showIn="@layout/activity_iroha_settings">
+
+    <EditText
+        android:id="@+id/networkAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="83dp"
+        android:ems="10"
+        android:hint="Address (e.g. 10.0.2.2)"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/portNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:ems="10"
+        android:hint="Port (e.g. 50051)"
+        android:inputType="number"
+        app:layout_constraintStart_toStartOf="@+id/networkAddress"
+        app:layout_constraintTop_toBottomOf="@+id/networkAddress" />
+
+    <EditText
+        android:id="@+id/publicKey"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="1dp"
+        android:ems="10"
+        android:hint="Public key (in HEX)"
+        android:inputType="textPersonName"
+        android:text=""
+        app:layout_constraintEnd_toEndOf="@+id/portNumber"
+        app:layout_constraintTop_toBottomOf="@+id/portNumber" />
+
+    <EditText
+        android:id="@+id/privateKey"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="26dp"
+        android:ems="10"
+        android:hint="Private key (in HEX)"
+        android:inputType="textPassword"
+        app:layout_constraintStart_toStartOf="@+id/publicKey"
+        app:layout_constraintTop_toBottomOf="@+id/publicKey" />
+
+    <Button
+        android:id="@+id/connect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="47dp"
+        android:text="Connect and save"
+        app:layout_constraintStart_toStartOf="@+id/accountId"
+        app:layout_constraintTop_toBottomOf="@+id/accountId" />
+
+    <EditText
+        android:id="@+id/accountId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="2dp"
+        android:ems="10"
+        android:hint="account@domain"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="@+id/privateKey"
+        app:layout_constraintTop_toBottomOf="@+id/privateKey" />
+
+</android.support.constraint.ConstraintLayout>

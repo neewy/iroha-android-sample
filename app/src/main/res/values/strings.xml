@@ -5,4 +5,5 @@
     <string name="title_notifications">Notifications</string>
     <string name="title_activity_send">SendActivity</string>
     <string name="title_activity_receive">ReceiveActivity</string>
+    <string name="title_activity_iroha_settings">IrohaSettingsActivity</string>
 </resources>

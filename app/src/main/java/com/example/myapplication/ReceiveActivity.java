@@ -42,7 +42,7 @@ public class ReceiveActivity extends AppCompatActivity {
         qrCode = findViewById(R.id.qrcode);
         assetNum = findViewById(R.id.assetQuantity);
 
-        qrCodeMessage = new QrCodeMessage(IrohaHandler.MyAccount.accountId,"0");
+        qrCodeMessage = new QrCodeMessage(IrohaHandler.account.accountId,"0");
 
         try {
             updateQrCode();
